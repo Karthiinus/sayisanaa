@@ -40,10 +40,21 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 30px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .logo-text {
             font-size: 1.8rem;
             font-weight: bold;
             color: #fff;
-            text-decoration: none;
         }
 
         .nav-links {
@@ -100,12 +111,166 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(79, 195, 247, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
         }
 
         .cta-button:hover {
             background: #29b6f6;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+        }
+
+        /* Contact Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .modal-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4fc3f7;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.1);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4fc3f7, #2196f3);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 195, 247, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #28a745;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #dc3545;
         }
 
         /* Container */
@@ -199,41 +364,6 @@
             text-align: center;
         }
 
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card p {
-            font-size: 1.2rem;
-            color: #666;
-            font-style: italic;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .testimonial-author {
-            color: #1e3c72;
-            font-weight: bold;
-        }
-
-        .testimonial-role {
-            color: #4fc3f7;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
         /* Footer */
         .footer {
             background: #1e3c72;
@@ -291,6 +421,16 @@
             .services-grid {
                 grid-template-columns: 1fr;
             }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .modal-header,
+            .modal-body {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -298,7 +438,10 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav">
-            <a href="#" class="logo">SayiSanaa Ltd</a>
+            <a href="#" class="logo">
+               <!-- <img src="./logowhite.png" alt="SayiSanaa Ltd Logo">-->
+                <span class="logo-text">SayiSanaa Ltd</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
@@ -313,9 +456,43 @@
         <div class="hero-content">
             <h1>Information Technology Services</h1>
             <p>IT services are essential for modern industry as they enable businesses to operate efficiently, maintain competitive advantage, and adapt to rapidly changing market demands through digital transformation, automation, and data-driven decision making. Professional IT services provide the foundation for innovation, enabling companies to leverage cutting-edge technologies, streamline operations, and deliver superior customer experiences that drive sustainable growth in the digital marketplace.</p>
-            <a href="#services" class="cta-button">Explore Our Services</a>
+            <button class="cta-button" id="getStartedBtn">Get Started Today</button>
         </div>
     </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Get Started Today</h2>
+                <p>Tell us about your project and we'll get back to you within 24 hours.</p>
+            </div>
+            <div class="modal-body">
+                <div class="success-message" id="successMessage">
+                    <strong>Thank you!</strong> Your message has been sent successfully. We'll get back to you soon.
+                </div>
+                <div class="error-message" id="errorMessage">
+                    <strong>Error!</strong> There was a problem sending your message. Please try again.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="userName">Your Name *</label>
+                        <input type="text" id="userName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Your Email *</label>
+                        <input type="email" id="userEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userMessage">Type Your Message Here *</label>
+                        <textarea id="userMessage" name="message" placeholder="Tell us about your project requirements..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Services Section -->
     <section class="services" id="services">
@@ -367,31 +544,12 @@
                     <h2>Transform Your Business Today</h2>
                     <p>With over 20 years of experience in delivering cutting-edge IT solutions, we provide tailored services for every stage of your digital transformation journey.</p>
                     <p>Modern technology should be the foundation for innovation and operational excellence. Our team of certified experts ensures your IT transformation is seamless, secure, and delivers measurable business results.</p>
-                    <a href="#contact" class="cta-button">Get Started Today</a>
-                </div>
-                <div class="about-image">
-                    <div>
-                        <h3>20+ Years</h3>
-                        <p>Experience in Data & Analytics</p>
-                    </div>
+                    <button class="cta-button" id="getStartedBtn2">Get Started Today</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <!-- 
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Clients Say</h2>
-            <div class="testimonial-card">
-                <p>"The expertise in design and deployment provided helped us successfully move our core Sales and Marketing services to the Azure Cloud. The results exceeded our expectations."</p>
-                <div class="testimonial-author">Chief Information Officer</div>
-                <div class="testimonial-role">Global Healthcare Provider</div>
-            </div>
-        </div>
-    </section>
--->
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
@@ -399,24 +557,24 @@
                 <div class="footer-section">
                     <h3>Contact Us</h3>
                     <p>Ready to onboard your business with IT solutions?</p>
-                    <p>Email: info@yourconsulting.com</p>
+                    <p>Email: dineshkumar.kariappan@gmail.com</p>
                     <p>Phone: +44 7448609255</p>
                 </div>
                 <div class="footer-section">
                     <h3>Our Services</h3>
-                    <p><a href="#">ServiceNow Implementation</a></p>
-                    <p><a href="#">Quality Automation Testing</a></p>
-                    <p><a href="#">Quality Manual Testing</a></p>
-                    <p><a href="#">Cloud Services</a></p>
-                    <p><a href="#">DevOps Solutions</a></p>
-                    <p><a href="#">Cloud Engineering</a></p>
+                    <p><a href="#services">ServiceNow Implementation</a></p>
+                    <p><a href="#services">Quality Automation Testing</a></p>
+                    <p><a href="#services">Quality Manual Testing</a></p>
+                    <p><a href="#services">Cloud Services</a></p>
+                    <p><a href="#services">DevOps Solutions</a></p>
+                    <p><a href="#services">Cloud Engineering</a></p>
                 </div>
                 <div class="footer-section">
                     <h3>Company</h3>
-                    <p><a href="#">About Us</a></p>
+                <!-- <p><a href="#">About Us</a></p>
                     <p><a href="#">Case Studies</a></p>
-                    <p><a href="#">Careers</a></p>
-                    <p><a href="#">Blog</a></p>
+                    <p><a href="#">Blog</a></p>-->
+                    <p><a href="careers.html">Careers</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -426,6 +584,85 @@
     </footer>
 
     <script>
+        // Get modal elements
+        const modal = document.getElementById('contactModal');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const getStartedBtn2 = document.getElementById('getStartedBtn2');
+        const closeBtn = document.querySelector('.close');
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Function to open modal
+        function openModal() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners for opening modal
+        getStartedBtn.addEventListener('click', openModal);
+        getStartedBtn2.addEventListener('click', openModal);
+
+        // Event listener for closing modal
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Handle form submission with Netlify Forms
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Create FormData object
+            const formData = new FormData(contactForm);
+            
+            // Submit to Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                // Show success message
+                successMessage.style.display = 'block';
+                contactForm.reset();
+                
+                // Close modal after 3 seconds
+                setTimeout(() => {
+                    closeModal();
+                    successMessage.style.display = 'none';
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+            })
+            .finally(() => {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
