@@ -118,12 +118,170 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(79, 195, 247, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
         }
 
         .cta-button:hover {
             background: #29b6f6;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+        }
+
+        /* Contact Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .modal-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4fc3f7;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.1);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4fc3f7, #2196f3);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 195, 247, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #28a745;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #dc3545;
         }
 
         /* Container */
@@ -261,6 +419,8 @@
             font-weight: 500;
             transition: all 0.3s ease;
             display: inline-block;
+            cursor: pointer;
+            border: none;
         }
 
         .apply-button:hover {
@@ -368,6 +528,18 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                max-height: 90vh;   /* limit modal height */
+                overflow-y: auto; 
+            }
+            
+            .modal-header,
+            .modal-body {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -397,6 +569,56 @@
             <a href="#openings" class="cta-button">View Open Positions</a>
         </div>
     </section>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Apply for Position</h2>
+                <p id="modalDescription">Tell us about your experience and interest in this role. We'll get back to you within 24 hours.</p>
+            </div>
+            <div class="modal-body">
+                <div class="success-message" id="successMessage">
+                    <strong>Thank you!</strong> Your application has been sent successfully. We'll get back to you soon.
+                </div>
+                <div class="error-message" id="errorMessage">
+                    <strong>Error!</strong> There was a problem sending your application. Please try again.
+                </div>
+                <form name="careers" method="POST" data-netlify="true">
+                    <input type="hidden" name="position" id="positionField" value="">
+                    <div class="form-group">
+                        <label for="userName">Your Name *</label>
+                        <input type="text" id="userName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Your Email *</label>
+                        <input type="email" id="userEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number</label>
+                        <input type="tel" id="userPhone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceLevel">Years of Experience *</label>
+                        <select id="experienceLevel" name="experience" required>
+                            <option value="">Select experience level</option>
+                            <option value="0-1">0-1 years</option>
+                            <option value="2-3">2-3 years</option>
+                            <option value="4-5">4-5 years</option>
+                            <option value="6-10">6-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="resumeLink">Resume/CV Link (Google Drive, LinkedIn, etc.)</label>
+                        <input type="url" id="resumeLink" name="resume_link" placeholder="https://...">
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Why Join Us Section -->
     <section class="why-join">
@@ -449,21 +671,6 @@
             
             <div class="job-card">
                 <div class="job-header">
-                    <h3 class="job-title">Senior ServiceNow Developer</h3>
-                    <span class="job-type">Full-Time</span>
-                </div>
-                <div class="job-details">
-                    <span class="job-location">📍 London, UK (Remote)</span> • 
-                    <span>3-5 years experience</span>
-                </div>
-                <p class="job-description">
-                    We're seeking an experienced ServiceNow developer to design, develop, and implement ServiceNow solutions. You'll work on ITSM, ITOM, and custom applications while collaborating with cross-functional teams to deliver exceptional client solutions.
-                </p>
-                <a href="mailto:careers@sayisanaa.com?subject=Senior ServiceNow Developer Application" class="apply-button">Apply Now</a>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
                     <h3 class="job-title">QA Automation Engineer</h3>
                     <span class="job-type">Full-Time</span>
                 </div>
@@ -474,8 +681,25 @@
                 <p class="job-description">
                     Join our QA team to develop and maintain automated testing frameworks. Experience with Selenium, TestNG, Jenkins, and API testing required. You'll ensure quality delivery across multiple client projects.
                 </p>
-                <a href="mailto:careers@sayisanaa.com?subject=QA Automation Engineer Application" class="apply-button">Apply Now</a>
+                <button class="apply-button" data-position="QA Automation Engineer">Apply Now</button>
             </div>
+          
+            <!--
+            <div class="job-card">
+                <div class="job-header">
+                    <h3 class="job-title">Senior ServiceNow Developer</h3>
+                    <span class="job-type">Full-Time</span>
+                </div>
+                <div class="job-details">
+                    <span class="job-location">📍 London, UK (Remote)</span> • 
+                    <span>3-5 years experience</span>
+                </div>
+                <p class="job-description">
+                    We're seeking an experienced ServiceNow developer to design, develop, and implement ServiceNow solutions. You'll work on ITSM, ITOM, and custom applications while collaborating with cross-functional teams to deliver exceptional client solutions.
+                </p>
+                <button class="apply-button" data-position="Senior ServiceNow Developer">Apply Now</button>
+            </div>
+
 
             <div class="job-card">
                 <div class="job-header">
@@ -489,7 +713,7 @@
                 <p class="job-description">
                     Lead cloud transformation projects across AWS, Azure, and GCP platforms. Design scalable architectures, mentor junior engineers, and drive best practices in cloud security and cost optimization.
                 </p>
-                <a href="mailto:careers@sayisanaa.com?subject=Cloud Solutions Architect Application" class="apply-button">Apply Now</a>
+                <button class="apply-button" data-position="Cloud Solutions Architect">Apply Now</button>
             </div>
 
             <div class="job-card">
@@ -504,7 +728,7 @@
                 <p class="job-description">
                     Build and maintain CI/CD pipelines, automate infrastructure deployment, and ensure reliable software delivery. Experience with Docker, Kubernetes, Jenkins, and Infrastructure as Code required.
                 </p>
-                <a href="mailto:careers@sayisanaa.com?subject=DevOps Engineer Application" class="apply-button">Apply Now</a>
+                <button class="apply-button" data-position="DevOps Engineer">Apply Now</button>
             </div>
 
             <div class="job-card">
@@ -519,8 +743,9 @@
                 <p class="job-description">
                     Start your QA career with us! Learn manual testing methodologies, work with experienced professionals, and contribute to ensuring software quality across diverse client projects.
                 </p>
-                <a href="mailto:careers@sayisanaa.com?subject=Junior QA Manual Tester Application" class="apply-button">Apply Now</a>
+                <button class="apply-button" data-position="Junior QA Manual Tester">Apply Now</button>
             </div>
+            -->
         </div>
     </section>
 
@@ -583,6 +808,72 @@
     </footer>
 
     <script>
+        // Get modal elements
+        const modal = document.getElementById('contactModal');
+        const closeBtn = document.querySelector('.close');
+        const applyButtons = document.querySelectorAll('.apply-button');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const positionField = document.getElementById('positionField');
+        const contactForm = document.querySelector('form[name="careers"]');
+
+        // Function to open modal
+        function openModal(position) {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Update modal content based on position
+            if (position) {
+                modalTitle.textContent = `Apply for ${position}`;
+                modalDescription.textContent = `Tell us about your experience and interest in the ${position} role. We'll get back to you within 24 hours.`;
+                positionField.value = position;
+            }
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            contactForm.reset();
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Application';
+        }
+
+        // Event listeners for apply buttons
+        applyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const position = button.getAttribute('data-position');
+                openModal(position);
+            });
+        });
+
+        // Event listener for closing modal
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+ // Handle form submission - Let Netlify handle it naturally
+        contactForm.addEventListener('submit', function(e) {
+            // Let the form submit naturally to Netlify
+            // Netlify will handle the redirect and form processing
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -624,8 +915,8 @@
             });
         }, observerOptions);
 
-        // Observe cards and sections
-        document.querySelectorAll('.benefit-card, .job-card, .culture').forEach(el => {
+        // Observe service cards and sections
+        document.querySelectorAll('.service-card, .about').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
