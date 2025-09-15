@@ -74,12 +74,65 @@
             color: #4fc3f7;
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.8)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><circle fill="%234fc3f7" opacity="0.1" cx="200" cy="100" r="80"/><circle fill="%232196f3" opacity="0.1" cx="800" cy="200" r="120"/><circle fill="%231976d2" opacity="0.1" cx="400" cy="400" r="100"/></svg>') center/cover;
+        /* Banner Section */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 70px; /* Account for fixed header */
+            overflow: hidden;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(30, 60, 114, 0.7), rgba(42, 82, 152, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-content {
+            text-align: center;
             color: white;
-            padding: 150px 0 80px;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .banner h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Default banner image (using CSS for fallback) */
+        .banner-default {
+            background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(42, 82, 152, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234fc3f7;stop-opacity:0.1"/><stop offset="50%" style="stop-color:%232196f3;stop-opacity:0.2"/><stop offset="100%" style="stop-color:%231976d2;stop-opacity:0.1"/></linearGradient></defs><rect fill="%23f0f8ff" width="1200" height="600"/><rect fill="url(%23bg)" width="1200" height="600"/><circle fill="%234fc3f7" opacity="0.3" cx="200" cy="150" r="120"/><circle fill="%232196f3" opacity="0.2" cx="800" cy="300" r="180"/><circle fill="%231976d2" opacity="0.25" cx="1000" cy="100" r="100"/><circle fill="%234fc3f7" opacity="0.15" cx="400" cy="450" r="150"/></svg>') center/cover;
+        }
+
+        /* Hero Section (now modified to work with banner) */
+        .hero {
+            background: #f8f9fa;
+            color: #333;
+            padding: 80px 0;
             text-align: center;
         }
 
@@ -89,16 +142,11 @@
             padding: 0 2rem;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            color: #666;
+            line-height: 1.8;
         }
 
         .cta-button {
@@ -406,8 +454,16 @@
                 display: none;
             }
             
-            .hero h1 {
+            .banner h1 {
                 font-size: 2.5rem;
+            }
+            
+            .banner-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .banner {
+                height: 300px;
             }
             
             .hero p {
@@ -452,14 +508,30 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Information Technology Services</h1>
-            <p>IT services are essential for modern industry as they enable businesses to operate efficiently, maintain competitive advantage, and adapt to rapidly changing market demands through digital transformation, automation, and data-driven decision making. Professional IT services provide the foundation for innovation, enabling companies to leverage cutting-edge technologies, streamline operations, and deliver superior customer experiences that drive sustainable growth in the digital marketplace.</p>
-            <button class="cta-button" id="getStartedBtn">Get Started Today</button>
+    <!-- Banner Section -->
+    <section class="banner" id="home">
+        <!-- Replace the src attribute below with your actual banner image URL -->
+        <img src="./images.jfif" alt="IT Solutions Banner" class="banner-image">
+        
+        <!-- Uncomment the line below if you don't have a banner image and want to use the default CSS background -->
+        <!-- <div class="banner-default"></div> -->
+        
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1 style="white-space: nowrap;">Business without Boundaries</h1>
+            <!-- <p class="banner-subtitle">Empowering businesses through digital transformation and innovation</p>-->
+             <p>Sayi Sanaa IT services empower businesses to stay competitive by driving digital transformation, automation, and data-driven decision-making. They enable innovation, streamline operations, and enhance customer experiences for sustainable growth in today's digital marketplace.</p>
+            </div>
         </div>
     </section>
+
+    <!-- Hero Section (now content section)
+    <section class="hero">
+        <div class="hero-content">
+       <p>Sayi Sanaa IT services empower businesses to stay competitive by driving digital transformation, automation, and data-driven decision-making. They enable innovation, streamline operations, and enhance customer experiences for sustainable growth in today's digital marketplace.</p>
+            <button class="cta-button" id="getStartedBtn">Get Started Today</button>
+        </div>
+    </section> -->
 
     <!-- Contact Modal -->
     <div id="contactModal" class="modal">
@@ -599,7 +671,7 @@
         const getStartedBtn = document.getElementById('getStartedBtn');
         const getStartedBtn2 = document.getElementById('getStartedBtn2');
         const closeBtn = document.querySelector('.close');
-        const contactForm = document.getElementById('contactForm');
+        const contactForm = document.querySelector('form[name="contact"]');
         const submitBtn = document.getElementById('submitBtn');
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
@@ -631,14 +703,16 @@
         });
 
         // Handle form submission - Let Netlify handle it naturally
-        contactForm.addEventListener('submit', function(e) {
-            // Let the form submit naturally to Netlify
-            // Netlify will handle the redirect and form processing
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-        });
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                // Let the form submit naturally to Netlify
+                // Netlify will handle the redirect and form processing
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+            });
+        }
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
